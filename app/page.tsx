@@ -21,14 +21,19 @@ export default function Page() {
 
     // Load all lists on first render
     useEffect(() => {
-        // If no list selected, don't fetch items
         fetch("/api/lists")
-            .then(res => res.json())
+            .then(async res => {
+                if (!res.ok) return []
+                return res.json()
+            })
             .then(data => {
-                setLists(data)
+                const safe = Array.isArray(data) ? data : []
 
-                // auto-select first list if it exists
-                if (data.length > 0) setActiveListId(data[0].id)
+                setLists(safe)
+
+                if (safe.length > 0) {
+                    setActiveListId(safe[0].id)
+                }
             })
     }, [])
 

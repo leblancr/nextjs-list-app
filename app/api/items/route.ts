@@ -1,4 +1,4 @@
-let lists: { id: number; name: string }[] = []
+const lists: { id: number; name: string }[] = []
 
 export async function GET() {
     return Response.json(lists)
