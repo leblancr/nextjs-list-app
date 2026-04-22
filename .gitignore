@@ -1,32 +1,90 @@
-# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
-
-# dependencies
-/node_modules
-/.pnp
-.pnp.*
-.yarn/*
-!.yarn/patches
-!.yarn/plugins
-!.yarn/releases
-!.yarn/versions
-
-# testing
-/coverage
-
-# next.js
-/.next/
-/out/
-
-# production
-/build
-
-# misc
+# =========================
+#  Global / OS Artifacts
+# =========================
 .DS_Store
-*.pem
+Thumbs.db
+*.swp
+*.swo
 
-# debug
+# =========================
+#  Editor / IDE configs
+# =========================
+.idea/
+.vscode/
+*.iml
+
+# =========================
+#  Python / Poetry (if any)
+# =========================
+__pycache__/
+*.py[cod]
+*.pyo
+*.so
+.venv/
+venv/
+env/
+.pytest_cache/
+.coverage
+htmlcov/
+.cache/
+.mypy_cache/
+.tox/
+*.log
+*.env
+.env.*
+
+# =========================
+#  Rust (Backend)
+# =========================
+/backend/target/
+/backend/Cargo.lock        # keep only if you want deterministic builds
+**/*.rs.bk                 # backup files from some editors
+
+# =========================
+#  Elixir / Phoenix (Frontend)
+# =========================
+/frontend/_build/
+/frontend/deps/
+/frontend/cover/
+/frontend/log/
+/frontend/tmp/
+/frontend/node_modules/
+/frontend/assets/node_modules/
+/frontend/.elixir_ls/
+/frontend/.mix/
+/frontend/.formatter.exs.backup
+/frontend/erl_crash.dump
+/frontend/*.ez
+/frontend/priv/static/assets/
+
+# =========================
+#  Node / JS build (for Phoenix assets)
+# =========================
+node_modules/
 npm-debug.log*
 yarn-debug.log*
+yarn-error.log*
+/frontend/assets/dist/
+/frontend/assets/build/
+.next/
+
+# =========================
+#  Deployment / OS
+# =========================
+*.pid
+*.sock
+*.tar.gz
+*.bak
+*.old
+*.orig
+
+# =========================
+#  Logs / temp files
+# =========================
+logs/
+tmp/
+*.tmp
+
 yarn-error.log*
 .pnpm-debug.log*
 
@@ -39,3 +97,4 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
