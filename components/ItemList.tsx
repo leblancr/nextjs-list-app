@@ -2,7 +2,7 @@ import type { Item } from "@/types/Item"
 
 type Props = {
     items: Item[]
-    activeListId: number
+    activeListId: number | null
 }
 
 export default function ItemList({ items, activeListId }: Props) {
@@ -14,7 +14,7 @@ export default function ItemList({ items, activeListId }: Props) {
 
     {filtered.map(item => (
         <div key={item.id} style={{ padding: 8 }}>
-        {item.text}
+        {item.title}
         </div>
     ))}
     </div>

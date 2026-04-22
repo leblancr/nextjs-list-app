@@ -1,6 +1,6 @@
 // types/Item.ts
 export type Item = {
-    id: string
-    listId: string
+    id: number
+    listId: number
     title: string
 }
