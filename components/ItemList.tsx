@@ -6,7 +6,7 @@ type Props = {
 }
 
 export default function ItemList({ items, activeListId }: Props) {
-    const filtered = items.filter(i => i.listId === activeListId)
+    const filtered = items.filter(i => i.list_id === activeListId)
 
     return (
         <div style={{ flex: 1, padding: 16 }}>
@@ -14,7 +14,7 @@ export default function ItemList({ items, activeListId }: Props) {
 
     {filtered.map(item => (
         <div key={item.id} style={{ padding: 8 }}>
-        {item.title}
+        {item.text}
         </div>
     ))}
     </div>
