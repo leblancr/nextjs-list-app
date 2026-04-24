@@ -12,7 +12,7 @@ export async function POST(req: Request) {
     const { name } = await req.json()
 
     const result = await pool.query(
-        "INSERT INTO lists (name) VALUES ($1) RETURNING *",
+        "INSERT INTO item_lists (name) VALUES ($1) RETURNING *",
         [name]
     )
 

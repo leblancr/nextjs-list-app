@@ -1,3 +1,8 @@
+"use client"
+
+// Sidebar.tsx
+// Displays list of user lists and allows selection
+
 type List = {
     id: number
     name: string
