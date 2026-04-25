@@ -5,8 +5,22 @@ type Props = {
     activeListId: number | null
 }
 
+// receives data through props, filters it, and displays a list of items for the currently selected list.
 export default function ItemList({ items, activeListId }: Props) {
-    const filtered = items.filter(i => i.list_id === activeListId)
+    console.log("activeListId:", activeListId)
+    console.log("items:", items)
+    console.log(
+        items.map(i => ({
+            listId: i.listId,
+            active: activeListId,
+            match: i.listId === activeListId
+        }))
+    )
+
+    const filtered =
+        activeListId === null
+            ? []
+            : items.filter(i => i.listId === activeListId)
 
     return (
         <div style={{ flex: 1, padding: 16 }}>
@@ -14,7 +28,7 @@ export default function ItemList({ items, activeListId }: Props) {
 
     {filtered.map(item => (
         <div key={item.id} style={{ padding: 8 }}>
-        {item.text}
+        {item.title}
         </div>
     ))}
     </div>

@@ -16,7 +16,7 @@ export default function Page() {
     const [items, setItems] = useState<Item[]>([])
     const [activeListId, setActiveListId] = useState<number | null>(null)
 
-    console.log("LISTS STATE IN PAGE:", lists)
+    // console.log("LISTS STATE IN PAGE:", lists)
 
     const [newListName, setNewListName] = useState("")
     const [newItemText, setNewItemText] = useState("")
@@ -25,15 +25,15 @@ export default function Page() {
     useEffect(() => {
         fetch("/api/lists")
             .then(async res => {
-                console.log("FETCH URL:", res.url)
-                console.log("STATUS:", res.status)
+                // console.log("FETCH URL:", res.url)
+                // console.log("STATUS:", res.status)
 
                 if (!res.ok) return []
                 return res.json()
             })
             .then(data => {
                 const safe = Array.isArray(data) ? data : []
-                console.log("DATA:", safe)
+                // console.log("DATA:", safe)
                 setLists(safe)
 
                 if (safe.length > 0) {
@@ -47,9 +47,13 @@ export default function Page() {
         if (!activeListId) return
 
         // Load items for the selected list
+        // api converts text AS "title", list_id AS "listId"
         fetch(`/api/items?list_id=${activeListId}`)
             .then(res => res.json())
-            .then(data => setItems(data))
+            .then(data => {
+                console.log("ITEMS API:", data)
+                setItems(data)
+            })
     }, [activeListId])
 
     const createItem = async () => {
