@@ -35,8 +35,15 @@ The easiest way to deploy your Next.js app is to use the [Vercel Platform](https
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
 
-route.ts = backend endpoint
-page.tsx = UI
-Postgres = source of truth
-models.ts = shared types (like schemas)
+UI (React)
+↓
+hook (useItems)
+↓
+API route (route.ts)
+↓
+service (business logic)
+↓
+repo (SQL)
+↓
+Postgres
 

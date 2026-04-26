@@ -3,6 +3,10 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  --h1: blueviolet;
+  --h2: blueviolet;
+  --h1_text: gray;
+  --h2_text: gray;
 }
 
 @theme inline {
@@ -23,4 +27,185 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+}
+
+h1, h2 {
+  border: 1px solid var(--h1);
+  background-color: color-mix(in srgb, var(--h1) 15%, transparent);
+  color: var(--h1_text);
+  display: inline-block;
+  margin: 0 0 12px 0;
+  padding: 9px 22px 14px 22px;
+  border-radius: 9999px;
+}
+
+input, button {
+  border-radius: 8px;
+  font-family: inherit;
+}
+
+/* ---------- APP LAYOUT ---------- */
+.app {
+  display: flex;
+  height: 100vh;
+  background: #111;
+  color: #9ca3af;
+}
+
+/* LEFT SIDEBAR */
+.sidebar {
+  border-right: 1px solid #333;
+  flex-shrink: 0;
+  padding: 26px;
+  overflow-y: auto;
+}
+
+/* RIGHT CONTENT */
+.content {
+  flex: 1;
+  padding: 24px;
+  overflow-y: auto;
+}
+
+/* RESIZER */
+.resizer {
+  width: 6px;
+  cursor: col-resize;
+  background: #222;
+}
+
+.resizer:hover {
+  background: #3b82f6;
+}
+
+/* ---------- ROW SYSTEM (LISTS + ITEMS) ---------- */
+.row {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 8px;
+
+  width: 100%;
+  margin-bottom: 6px;
+  padding: 6px 12px;
+
+  box-sizing: border-box;
+
+  border-radius: 9999px;
+  border: 1px solid color-mix(in srgb, var(--row-color, #666) 33%, transparent);
+  background: color-mix(in srgb, var(--row-color, #666) 21%, black);
+
+  opacity: 0.85;
+  transition: background 0.15s ease, border 0.15s ease;
+}
+
+.row.active {
+  background: color-mix(in srgb, var(--row-color, #666) 60%, black);
+  opacity: 1;
+}
+
+.row:hover {
+  border: 1px solid var(--row-color, #666);
+  background: color-mix(in srgb, var(--row-color, #666) 20%, transparent);
+}
+
+/* ---------- ACTION BUTTONS ---------- */
+.actions {
+  margin-left: auto;
+  display: flex;
+  gap: 8px;
+
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.15s ease;
+}
+
+.row:hover .actions {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* ---------- MODAL ---------- */
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal {
+  background: #1f1f1f;
+  border: 1px solid #3b82f6;
+  border-radius: 28px;
+
+  padding: 16px;
+  min-width: 300px;
+
+  color: white;
+}
+
+.modal input {
+  width: 100%;
+  margin-top: 8px;
+
+  padding: 8px 10px;
+  border-radius: 9999px;
+
+  border: 1px solid #444;
+  background: #2a2a2a;
+  color: white;
+  outline: none;
+}
+
+.modal-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.modal button {
+  padding: 8px 12px;
+  border-radius: 9999px;
+
+  background: #2a2a2a;
+  border: 1px solid #3a3a3a;
+  color: white;
+
+  cursor: pointer;
+}
+
+.modal button:hover {
+  background: #3a3a3a;
+}
+
+/* ---------- INPUT ROW (create forms) ---------- */
+.inputRow {
+  display: flex;
+  width: 100%;
+  margin-top: 12px;
+}
+
+.inputRow input {
+  flex: 1;
+  padding: 8px 12px;
+
+  border: 1px solid #ccc;
+  border-radius: 6px 0 0 6px;
+
+  outline: none;
+}
+
+.inputRow button {
+  padding: 8px 14px;
+
+  border: 1px solid #ccc;
+  border-radius: 0 6px 6px 0;
+
+  background: #e5e7eb;
+  color: #111;
+
+  cursor: pointer;
 }

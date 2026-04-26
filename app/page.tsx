@@ -1,8 +1,8 @@
 "use client"
 
-import type { Item } from "@/types/Item"
-
 import { useState, useEffect } from "react"
+import { useItems } from "@/hooks/useItems"
+
 import Sidebar from "../components/Sidebar"
 import ItemList from "../components/ItemList"
 
@@ -13,8 +13,9 @@ type List = {
 
 export default function Page() {
     const [lists, setLists] = useState<List[]>([])
-    const [items, setItems] = useState<Item[]>([])
     const [activeListId, setActiveListId] = useState<number | null>(null)
+
+    const { items, createItem } = useItems(activeListId)
 
     // console.log("LISTS STATE IN PAGE:", lists)
 
@@ -41,38 +42,6 @@ export default function Page() {
                 }
             })
     }, [])
-
-    // If no list selected, don't fetch items
-    useEffect(() => {
-        if (!activeListId) return
-
-        // Load items for the selected list
-        // api converts text AS "title", list_id AS "listId"
-        fetch(`/api/items?list_id=${activeListId}`)
-            .then(res => res.json())
-            .then(data => {
-                console.log("ITEMS API:", data)
-                setItems(data)
-            })
-    }, [activeListId])
-
-    const createItem = async () => {
-        if (!newItemText || !activeListId) return
-
-        const res = await fetch("/api/items", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-                text: newItemText,
-                list_id: activeListId
-            })
-        })
-
-        const created = await res.json()
-
-        setItems(prev => [...prev, created])
-        setNewItemText("")
-    }
 
     const createList = async () => {
         if (!newListName) return
