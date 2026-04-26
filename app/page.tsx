@@ -4,15 +4,12 @@ import { useState, useEffect } from "react"
 import { useItems } from "@/hooks/useItems"
 
 import Sidebar from "../components/Sidebar"
-import ItemList from "../components/ItemList"
+import ItemsList from "../components/ItemsList"
 
-type List = {
-    id: number
-    name: string
-}
+import type { ItemsListType } from "@/types/ItemsList"
 
 export default function Page() {
-    const [lists, setLists] = useState<List[]>([])
+    const [itemsLists, setItemsLists] = useState<ItemsListType[]>([])
     const [activeListId, setActiveListId] = useState<number | null>(null)
 
     const { items, createItem } = useItems(activeListId)
@@ -35,7 +32,7 @@ export default function Page() {
             .then(data => {
                 const safe = Array.isArray(data) ? data : []
                 // console.log("DATA:", safe)
-                setLists(safe)
+                setItemsLists(safe)
 
                 if (safe.length > 0) {
                     setActiveListId(safe[0].id)
@@ -52,21 +49,22 @@ export default function Page() {
 
         const created = await res.json()
 
-        setLists(prev => [...prev, created])
+        setItemsLists(prev => [...prev, created])
         setNewListName("")
     }
 
     return (
         <div style={{ display: "flex", height: "100vh", background: "#111", color: "#e5e7eb" }}>
             <Sidebar
-                lists={lists}
+                lists={itemsLists}
                 activeListId={activeListId}
                 setActiveListId={setActiveListId}
             />
 
-            <ItemList
+            <ItemsList
                 items={items}
                 activeListId={activeListId}
+                itemsList={itemsLists}
             />
         </div>
     )

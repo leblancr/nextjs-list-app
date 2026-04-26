@@ -1,5 +1,5 @@
 // types/Item.ts
-export type Item = {
+export type ItemType = {
     id: number
     title: string
     listId: number

@@ -60,11 +60,27 @@ input, button {
   overflow-y: auto;
 }
 
+.sidebar .row {
+  background: color-mix(in srgb, var(--row-color, #666) 15%, black);
+}
+
+.sidebar .row:hover {
+  background: color-mix(in srgb, var(--row-color, #666) 30%, black);
+}
+
 /* RIGHT CONTENT */
 .content {
   flex: 1;
   padding: 24px;
   overflow-y: auto;
+}
+
+.content .row {
+  opacity: 1;
+}
+
+.content .row:hover {
+  background: color-mix(in srgb, var(--row-color, #666) 30%, black);
 }
 
 /* RESIZER */
@@ -82,20 +98,17 @@ input, button {
 .row {
   display: flex;
   align-items: center;
-  justify-content: flex-start;
   gap: 8px;
 
   width: 100%;
   margin-bottom: 6px;
   padding: 6px 12px;
 
-  box-sizing: border-box;
-
   border-radius: 9999px;
+
   border: 1px solid color-mix(in srgb, var(--row-color, #666) 33%, transparent);
   background: color-mix(in srgb, var(--row-color, #666) 21%, black);
 
-  opacity: 0.85;
   transition: background 0.15s ease, border 0.15s ease;
 }
 
