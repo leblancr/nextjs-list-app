@@ -7,6 +7,7 @@
   --h2: blueviolet;
   --h1_text: gray;
   --h2_text: gray;
+  --sidebar-text: gray;
 }
 
 @theme inline {
@@ -52,20 +53,42 @@ input, button {
   color: #9ca3af;
 }
 
+/* ---------- ROW SYSTEM (LISTS + ITEMS) ---------- */
+.row {
+  align-items: center;
+  border-radius: 9999px;
+  border: 1px solid color-mix(in srgb, var(--row-color, #666) 33%, transparent);
+  display: flex;
+  gap: 8px;
+  margin-bottom: 6px;
+  padding: 6px 12px;
+  transition: background 0.15s ease, border 0.15s ease;
+  width: 100%;
+}
+
+.row.active {
+  background: color-mix(in srgb, var(--row-color, #666) 20%, black);
+  border: 1px solid var(--row-color, #666);
+  color: white;
+  opacity: 1;
+}
+
+.row:hover {
+  background: color-mix(in srgb, var(--row-color, #666) 20%, transparent);
+  border: 1px solid var(--row-color, #666);
+}
+
 /* LEFT SIDEBAR */
 .sidebar {
-  border-right: 1px solid #333;
+  color: var(--sidebar-text);
   flex-shrink: 0;
   padding: 26px;
   overflow-y: auto;
 }
 
-.sidebar .row {
-  background: color-mix(in srgb, var(--row-color, #666) 15%, black);
-}
-
 .sidebar .row:hover {
   background: color-mix(in srgb, var(--row-color, #666) 30%, black);
+  border: 1px solid var(--row-color, #666);
 }
 
 /* RIGHT CONTENT */
@@ -75,7 +98,9 @@ input, button {
   overflow-y: auto;
 }
 
-.content .row {
+.content .row:not(.active):not(:hover) {
+  background: color-mix(in srgb, var(--row-color, #666) 15%, black);
+  border: 1px solid color-mix(in srgb, var(--row-color, #666) 34%, transparent);
   opacity: 1;
 }
 
@@ -92,34 +117,6 @@ input, button {
 
 .resizer:hover {
   background: #3b82f6;
-}
-
-/* ---------- ROW SYSTEM (LISTS + ITEMS) ---------- */
-.row {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-
-  width: 100%;
-  margin-bottom: 6px;
-  padding: 6px 12px;
-
-  border-radius: 9999px;
-
-  border: 1px solid color-mix(in srgb, var(--row-color, #666) 33%, transparent);
-  background: color-mix(in srgb, var(--row-color, #666) 21%, black);
-
-  transition: background 0.15s ease, border 0.15s ease;
-}
-
-.row.active {
-  background: color-mix(in srgb, var(--row-color, #666) 60%, black);
-  opacity: 1;
-}
-
-.row:hover {
-  border: 1px solid var(--row-color, #666);
-  background: color-mix(in srgb, var(--row-color, #666) 20%, transparent);
 }
 
 /* ---------- ACTION BUTTONS ---------- */

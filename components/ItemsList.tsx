@@ -29,17 +29,17 @@ export default function ItemsList({ items, activeListId, itemsList }: Props) {
             : items.filter(i => i.listId === activeListId)
 
     return (
-        <div style={{ flex: 1, padding: 16 }}>
-    <h2>Items</h2>
+        <div className="content">
+        <h2>Items</h2>
 
-    {filtered.map(item => (
-        <div
-            key={item.id}
-            className={`row ${item.listId === activeListId ? "active" : ""}`}
-            style={{ "--row-color": activeItemList?.color } as React.CSSProperties}        >
-            {item.title}
-        </div>
-    ))}
+        {filtered.map(item => (
+            <div
+                key={item.id}
+                className="row"
+                style={{ "--row-color": activeItemList?.color } as React.CSSProperties}        >
+                {item.title}
+            </div>
+        ))}
     </div>
 )
 }
