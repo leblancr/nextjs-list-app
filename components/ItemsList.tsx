@@ -1,5 +1,6 @@
 import type { ItemType } from "@/types/Item"
 import type { ItemsListType } from "@/types/ItemsList"
+import Item from "./Item"
 
 type Props = {
     items: ItemType[]
@@ -32,14 +33,13 @@ export default function ItemsList({ items, activeListId, itemsList }: Props) {
         <div className="content">
         <h2>Items</h2>
 
-        {filtered.map(item => (
-            <div
-                key={item.id}
-                className="row"
-                style={{ "--row-color": activeItemList?.color } as React.CSSProperties}        >
-                {item.title}
-            </div>
-        ))}
-    </div>
-)
+            {filtered.map(item => (
+                <Item
+                    key={item.id}
+                    title={item.title}
+                    color={activeItemList?.color}
+                />
+            ))}
+        </div>
+    )
 }

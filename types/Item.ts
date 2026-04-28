@@ -1,4 +1,4 @@
-// types/Item.ts
+// types/Item.tsx
 export type ItemType = {
     id: number
     title: string
