@@ -18,6 +18,11 @@ export default function Page() {
 
     const [newListName, setNewListName] = useState("")
     const [newItemText, setNewItemText] = useState("")
+    const [sidebarWidth, setSidebarWidth] = useState(260)
+    const [dragging, setDragging] = useState(false)
+
+    const startDrag = () => setDragging(true)
+    const stopDrag = () => setDragging(false)
 
     // Load all lists on first render
     useEffect(() => {
@@ -40,6 +45,24 @@ export default function Page() {
             })
     }, [])
 
+    useEffect(() => {
+        if (!dragging) return
+
+        const onMove = (e: MouseEvent) => {
+            setSidebarWidth(Math.max(180, Math.min(500, e.clientX)))
+        }
+
+        const stop = () => setDragging(false)
+
+        window.addEventListener("mousemove", onMove)
+        window.addEventListener("mouseup", stop)
+
+        return () => {
+            window.removeEventListener("mousemove", onMove)
+            window.removeEventListener("mouseup", stop)
+        }
+    }, [dragging])
+
     const createList = async () => {
         if (!newListName) return
 
@@ -54,18 +77,35 @@ export default function Page() {
     }
 
     return (
-        <div style={{ display: "flex", height: "100vh", background: "#111", color: "#e5e7eb" }}>
-            <Sidebar
-                lists={itemsLists}
-                activeListId={activeListId}
-                setActiveListId={setActiveListId}
+        <div style={{ display: "flex", height: "100vh" }}>
+
+            <div style={{ width: sidebarWidth, flexShrink: 0, minWidth: 0, overflow: "hidden" }}>
+                <Sidebar
+                    lists={itemsLists}
+                    activeListId={activeListId}
+                    setActiveListId={setActiveListId}
+                />
+            </div>
+
+            <div
+                onMouseDown={() => setDragging(true)}
+                style={{
+                    width: "4px",
+                    cursor: "col-resize",
+                    background: "#333",
+                    flexShrink: 0
+                }}
             />
 
-            <ItemsList
-                items={items}
-                activeListId={activeListId}
-                itemsList={itemsLists}
-            />
+            <div style={{ flex: 1, minWidth: 0 }}>
+                <ItemsList
+                    items={items}
+                    activeListId={activeListId}
+                    itemsList={itemsLists}
+                    createItem={createItem}
+                />
+            </div>
+
         </div>
     )
 }

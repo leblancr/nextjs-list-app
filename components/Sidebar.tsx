@@ -21,8 +21,8 @@ export default function Sidebar({
     setActiveListId,
 }: Props) {
     return (
-        <div className="sidebar" style={{ width: 240 }}>
-        <h2>Lists</h2>
+        <div className="sidebar" style={{ width: "100%", minWidth: 0, overflow: "hidden" }}>
+            <h2>Lists</h2>
 
         {lists.map(list => (
             <div
