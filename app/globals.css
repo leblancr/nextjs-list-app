@@ -1,8 +1,6 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
   --h1: blueviolet;
   --h2: blueviolet;
   --h1_text: gray;
@@ -31,13 +29,23 @@ body {
 }
 
 h1, h2 {
-  border: 1px solid var(--h1);
   background-color: color-mix(in srgb, var(--h1) 15%, transparent);
+  border: 1px solid var(--h1);
+  border-radius: 9999px;
   color: var(--h1_text);
   display: inline-block;
   margin: 0 0 12px 0;
-  padding: 9px 22px 14px 22px;
-  border-radius: 9999px;
+  padding: 10px 22px;
+}
+
+h1 {
+  font-size: 22px;
+  font-weight: 600;
+}
+
+h2 {
+  font-size: 16px;
+  font-weight: 500;
 }
 
 input, button {
@@ -53,70 +61,61 @@ input, button {
   color: #9ca3af;
 }
 
-/* ---------- ROW SYSTEM (LISTS + ITEMS) ---------- */
-.row {
-  align-items: center;
-  border-radius: 9999px;
-  border: 1px solid color-mix(in srgb, var(--row-color, #666) 33%, transparent);
-  display: flex;
-  gap: 8px;
-  margin-bottom: 6px;
-  padding: 6px 12px;
-  transition: background 0.15s ease, border 0.15s ease;
-  width: 100%;
-}
-
-.row.active {
-  background: color-mix(in srgb, var(--row-color, #666) 20%, black);
-  border: 1px solid var(--row-color, #666);
-  color: white;
-  opacity: 1;
-}
-
-.row:hover {
-  background: color-mix(in srgb, var(--row-color, #666) 20%, transparent);
-  border: 1px solid var(--row-color, #666);
-}
-
-/* LEFT SIDEBAR */
-.sidebar {
-  color: var(--sidebar-text);
-  flex-shrink: 0;
-  padding: 26px;
-  overflow-y: auto;
-}
-
-.sidebar .row:hover {
-  background: color-mix(in srgb, var(--row-color, #666) 30%, black);
-  border: 1px solid var(--row-color, #666);
-}
 
 /* RIGHT CONTENT */
 .content {
+  background: #111;
   flex: 1;
   padding: 24px;
   overflow-y: auto;
+  text-align: center;
+}
+
+.content h2 {
+  display: inline-block;
 }
 
 .content .row:not(.active):not(:hover) {
-  background: color-mix(in srgb, var(--row-color, #666) 15%, black);
-  border: 1px solid color-mix(in srgb, var(--row-color, #666) 34%, transparent);
+  background: color-mix(in srgb, var(--accent, #666) 15%, black);
+  border: 1px solid color-mix(in srgb, var(--accent, #666) 34%, transparent);
   opacity: 1;
 }
 
+.content .row {
+  border: 1px solid color-mix(in srgb, var(--accent, #666) 33%, transparent);
+}
+
 .content .row:hover {
-  background: color-mix(in srgb, var(--row-color, #666) 30%, black);
+  background: color-mix(in srgb, var(--accent, #666) 30%, black);
 }
 
-/* RESIZER */
-.resizer {
-  width: 6px;
-  cursor: col-resize;
-  background: #222;
+/* ---------- INPUT ROW (create forms) ---------- */
+.inputRow {
+  display: flex;
+  width: 100%;
+  margin-top: 12px;
 }
 
-.resizer:hover {
-  background: #3b82f6;
+.inputRow input {
+  flex: 1;
+  padding: 8px 12px;
+
+  border: 1px solid #ccc;
+  border-radius: 6px 0 0 6px;
+
+  outline: none;
+}
+
+.inputRow button {
+  padding: 8px 14px;
+
+  border: 1px solid #ccc;
+  border-radius: 0 6px 6px 0;
+
+  background: #e5e7eb;
+  color: #111;
+
+  cursor: pointer;
 }
 
 /* ---------- ACTION BUTTONS ---------- */
@@ -150,7 +149,7 @@ input, button {
   background: #1f1f1f;
   border: 1px solid #3b82f6;
   border-radius: 28px;
-
+  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
   padding: 16px;
   min-width: 300px;
 
@@ -191,31 +190,88 @@ input, button {
   background: #3a3a3a;
 }
 
-/* ---------- INPUT ROW (create forms) ---------- */
-.inputRow {
+/* RESIZER */
+.resizer {
+  width: 6px;
+  cursor: col-resize;
+  background: #222;
+}
+
+.resizer:hover {
+  background: #3b82f6;
+}
+
+/* ---------- ROW SYSTEM (LISTS + ITEMS) ---------- */
+.row {
+  align-items: center;
+  border-radius: 9999px;
+  border: 1px solid color-mix(in srgb, var(--accent, #666) 33%, transparent);
   display: flex;
+  gap: 8px;
+  margin-bottom: 6px;
+  padding: 6px 12px;
+  transition: background 0.15s ease, transform 0.12s ease, border-color 0.15s ease;
   width: 100%;
-  margin-top: 12px;
 }
 
-.inputRow input {
-  flex: 1;
-  padding: 8px 12px;
-
-  border: 1px solid #ccc;
-  border-radius: 6px 0 0 6px;
-
-  outline: none;
+.row.active {
+  box-shadow:
+          0 0 0 1px var(--accent),
+          0 0 12px color-mix(in srgb, var(--accent) 40%, transparent);
+  background: color-mix(in srgb, var(--accent, #666) 20%, black);
+  border: 1px solid var(--accent, #666);
+  color: white;
+  opacity: 1;
 }
 
-.inputRow button {
-  padding: 8px 14px;
+.row:hover {
+  background: color-mix(in srgb, var(--accent, #666) 20%, transparent);
+  border: 1px solid var(--accent, #666);
+  transform: translateX(3px);
+}
 
-  border: 1px solid #ccc;
-  border-radius: 0 6px 6px 0;
+/* LEFT SIDEBAR */
+.sidebar {
+  background: #0f0f0f;
+  border-right: 1px solid #1f1f1f;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: var(--sidebar-text);
+  flex-shrink: 0;
+  padding: 26px;
+  overflow-y: auto;
+}
 
-  background: #e5e7eb;
-  color: #111;
-
+.sidebar button {
+  padding: 6px 12px;
+  border: 1px solid #3a3a3a;
+  background: #2a2a2a;
+  color: white;
   cursor: pointer;
+  border-radius: 9999px;
+  transition: background 0.15s ease;
+}
+
+.sidebar button,
+.modal button {
+  transition: background 0.15s ease, transform 0.1s ease;
+}
+
+.sidebar button:hover,
+.modal button:hover {
+  transform: translateY(-1px);
+}
+
+.sidebar button:hover {
+  background: #3a3a3a;
+}
+
+.sidebar .row {
+  border: 1px solid color-mix(in srgb, var(--row-accent, #666) 33%, transparent);
+}
+
+.sidebar .row:hover {
+  background: color-mix(in srgb, var(--row-accent, #666) 30%, black);
+  border: 1px solid var(--row-accent, #666);
 }

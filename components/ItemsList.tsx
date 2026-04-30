@@ -24,6 +24,9 @@ export default function ItemsList({ items, activeListId, itemsList }: Props) {
         itemList => itemList.id === activeListId
     )
 
+    const activeListColor = activeItemList?.color
+    const activeListName = activeItemList?.name || "Items"
+
     const filtered =
         activeListId === null
             ? []
@@ -31,7 +34,14 @@ export default function ItemsList({ items, activeListId, itemsList }: Props) {
 
     return (
         <div className="content">
-        <h2>Items</h2>
+            <h1
+                style={{
+                    border: `1px solid ${activeListColor || "#666"}`,
+                    backgroundColor: `${activeListColor || "#666"}20`
+                }}
+            >
+                {activeListName}
+            </h1>
 
             {filtered.map(item => (
                 <Item

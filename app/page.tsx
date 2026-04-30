@@ -1,8 +1,6 @@
 "use client"
-
-import { useState, useEffect } from "react"
 import { useItems } from "@/hooks/useItems"
-
+import { useState, useEffect } from "react"
 import Sidebar from "../components/Sidebar"
 import ItemsList from "../components/ItemsList"
 
@@ -17,7 +15,8 @@ export default function Page() {
     // console.log("LISTS STATE IN PAGE:", lists)
 
     const [newListName, setNewListName] = useState("")
-    const [newItemText, setNewItemText] = useState("")
+    const [isListOpen, setIsListOpen] = useState(false)
+    const [newListColor, setNewListColor] = useState("#666666")
     const [sidebarWidth, setSidebarWidth] = useState(260)
     const [dragging, setDragging] = useState(false)
 
@@ -66,8 +65,13 @@ export default function Page() {
     const createList = async () => {
         if (!newListName) return
 
-        const res = await fetch("/api/lists?name=" + encodeURIComponent(newListName), {
-            method: "POST"
+        const res = await fetch("/api/lists", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                name: newListName,
+                color: newListColor
+            })
         })
 
         const created = await res.json()
@@ -77,8 +81,13 @@ export default function Page() {
     }
 
     return (
-        <div style={{ display: "flex", height: "100vh" }}>
-
+        <div
+            className="app"
+            style={{
+                ["--accent" as any]:
+                    itemsLists.find(l => l.id === activeListId)?.color || "#666"
+            }}
+        >
             <div style={{ width: sidebarWidth, flexShrink: 0, minWidth: 0, overflow: "hidden" }}>
                 <Sidebar
                     lists={itemsLists}
@@ -102,7 +111,6 @@ export default function Page() {
                     items={items}
                     activeListId={activeListId}
                     itemsList={itemsLists}
-                    createItem={createItem}
                 />
             </div>
 
